@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "OnlineShopDelivery",
+    "slug": "OnlineShopDelivery",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "OnlineShopDelivery"
+}
