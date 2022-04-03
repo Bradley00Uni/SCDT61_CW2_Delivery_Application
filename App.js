@@ -3,13 +3,14 @@ import { View, StyleSheet, Container, Button, Text, TextInput, Alert } from 'rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomNavigation } from 'react-native-paper';
 
+import Home from './components/home';
+import Deliveries from './components/deliveries';
+
 export default function App() {
   useEffect(() => {
     readToken()
   },[token, index])
 
-  const HomeRoute = () => <Text>Home Page</Text>;
-  const OrderPage = () => <Text>Order Page</Text>;
   const HistoryPage = () => <Text>History Page</Text>;
 
   const STORAGE_TOKEN = '@driver_token'
@@ -26,9 +27,9 @@ export default function App() {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'home', title: 'Home', icon: 'home'},
-    {key: 'orders', title: 'Orders', icon: 'home'},
-    {key: 'history', title: 'History', icon: 'home'}
+    {key: 'home', title: 'Pending Delivery', icon: 'clock', color: 'black'},
+    {key: 'orders', title: 'Your Orders', icon: 'truck', color: 'black'},
+    {key: 'history', title: 'Delivery History', icon: 'bag-carry-on-check', color: 'black'}
   ]);
 
   const saveToken = async (result) => {
@@ -36,7 +37,7 @@ export default function App() {
       await AsyncStorage.setItem(STORAGE_TOKEN, result.token)
       console.log('Token Set Successfully')
 
-      await AsyncStorage.setItem(STORAGE_USER, result.id)
+      await AsyncStorage.setItem(STORAGE_ID, result.id)
       console.log('ID set Successfully')
 
       await AsyncStorage.setItem(STORAGE_NAME, result.firstName)
@@ -64,8 +65,8 @@ export default function App() {
 
     //Renders the navigation
   const renderScene = BottomNavigation.SceneMap({
-    home: HomeRoute,
-    orders: OrderPage,
+    home: Home,
+    orders: Deliveries,
     history: HistoryPage,
   });
 
@@ -80,7 +81,7 @@ export default function App() {
       "password" : password
     }
 
-    let response = await fetch('https://localhost:5001/Login', {
+    let response = await fetch('https://onlineshopdeliveryapi20220402003022.azurewebsites.net/api/auth/Login', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'}
