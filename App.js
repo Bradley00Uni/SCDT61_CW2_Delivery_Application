@@ -5,13 +5,12 @@ import { BottomNavigation } from 'react-native-paper';
 
 import Home from './components/home';
 import Deliveries from './components/deliveries';
+import History from './components/history';
 
 export default function App() {
   useEffect(() => {
     readToken()
   },[token, index])
-
-  const HistoryPage = () => <Text>History Page</Text>;
 
   const STORAGE_TOKEN = '@driver_token'
   const STORAGE_ID = '@driver_id'
@@ -67,7 +66,7 @@ export default function App() {
   const renderScene = BottomNavigation.SceneMap({
     home: Home,
     orders: Deliveries,
-    history: HistoryPage,
+    history: History,
   });
 
   const formStateChange = () => {

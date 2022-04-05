@@ -5,16 +5,14 @@ import { Appbar } from 'react-native-paper';
 import {Restart} from 'fiction-expo-restart';
 import { Card, Overlay } from 'react-native-elements';
 
-import Status from './status';
-
-const Deliveries = () => {
+const History = () => {
     const STORAGE_ID = '@driver_id'
 
     const [orders, setOrders] = useState(null)
     const [loading, setLoading] = useState(true)
 
     const [currentOrder, setCurrentOrder] = useState(null)
-    const [statusVisible, setStatusVisible] = useState(false)
+    const [details, setDetailsVisible] = useState(false)
 
     useEffect(() => {
         getOrders()
@@ -22,11 +20,10 @@ const Deliveries = () => {
 
     const getOrders = async () => {
         const id = await AsyncStorage.getItem(STORAGE_ID)
-        fetch(`https://onlineshopdeliveryapi20220402003022.azurewebsites.net/api/orders/DriverOrders/${id}`).then( (response) => response.json()).then( (responseJson) => {
+        fetch(`https://onlineshopdeliveryapi20220402003022.azurewebsites.net/api/orders/CompleteOrders/${id}`).then( (response) => response.json()).then( (responseJson) => {
             setOrders(responseJson)
             setLoading(false)
         }).catch((error) => {console.log(error)})
-
     }
 
     const convertDate =(date) => {
@@ -63,8 +60,6 @@ const Deliveries = () => {
         return newDate
     }
 
-    const toggleStatus = () => {setStatusVisible(!statusVisible)}
-
     if(loading){
         return(
             <View>
@@ -81,15 +76,9 @@ const Deliveries = () => {
   
               return (
                   <Card key={key} style={styles.item} containerStyle={{backgroundColor: 'white', borderColor: 'black', borderWidth: 1, borderRadius: 18,}}>
-                      <Card.Title h5>Order : {val.order.orderId} | <Text style={{fontWeight: 'bold', color: 'blue', fontSize: 15}}> {val.order.orderStatus}</Text></Card.Title>
+                      <Card.Title h5>Order : {val.order.orderId} | {convertDate(val.order.orderPlaced)}</Card.Title>
                       <Card.Divider color='black' />
-                      <Text>Order Placed: {convertDate(val.order.orderPlaced)}</Text>
-                      <Text>Number of Items: {totalProducts} | Order Total: £{val.order.orderTotal}</Text>
-                      <Text>Deliver to: {val.delivery.firstName} {val.delivery.lastName} </Text>
-                      <Text>Address: {val.delivery.addressLine1}, {val.delivery.city}, {val.delivery.country}</Text>
-                      <Text>PostCode: {val.delivery.postCode}</Text>
-                      <Text>Recipient Email: {val.delivery.email}</Text>
-                      <View style={{marginTop: 5}}><Button title='Update' onPress={() => {toggleStatus(); setCurrentOrder(val)}} color={'#209ccc'} /></View>
+                      <Text style={{textAlign: 'center'}}>Number of Items: {totalProducts} | Order Total: £{val.order.orderTotal}</Text>
                   </Card>
               )
           })
@@ -99,13 +88,8 @@ const Deliveries = () => {
                   <Appbar.Header style={styles.header}>
                     <Appbar.Action icon="refresh" accessibiltyLevel onPress={() => getOrders()} />
                     <Appbar.Content title="OnlineShop2022 Orders" />
-                    <Appbar.Action icon="logout" accessibiltyLevel onPress={() => logout()} />
                   </Appbar.Header>
                   <ScrollView style={styles.scrolling}>{orderMap}</ScrollView>
-                  <Overlay isVisible={statusVisible} fullScreen >
-                    <Status current={currentOrder} />
-                    <View style={{marginTop: 30}}><Button color={'black'} onPress={() => toggleStatus()} title={"Go Back"} /></View>
-                  </Overlay>
               </View>
           )
         }
@@ -142,5 +126,5 @@ const Deliveries = () => {
           width: Dimensions.get('window').width,
       }
   })
-  
-  export default Deliveries
+
+export default History

@@ -32,7 +32,6 @@ const Home = () => {
     }
 
     const acceptDelivery = async (val) => {
-        console.log(val)
         let data = {
             "orderId" : val.order.orderId,
             "orderTotal" : val.order.orderTotal,
@@ -40,7 +39,6 @@ const Home = () => {
             "orderStatus" : "Delivery Accepted",
             "userID" : driver
         }
-        console.log(val.order.orderId)
         const response = await fetch(`https://onlineshopdeliveryapi20220402003022.azurewebsites.net/api/orders/${val.order.orderId}`, {
             method: 'PUT',
             body: (JSON.stringify(data)),
