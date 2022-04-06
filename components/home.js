@@ -120,7 +120,6 @@ const Home = () => {
                     <Text>PostCode: {val.delivery.postCode}</Text>
                     <Text>Recipient Email: {val.delivery.email}</Text>
                     <View style={{marginTop: 30}}><Button title='Accept Delivery' color={'#50bc74'} onPress={() => acceptDelivery(val)} /></View>
-                    <View style={{marginTop: 5}}><Button title='More Details' color={'#209ccc'} /></View>
                 </Card>
             )
         })
@@ -129,7 +128,7 @@ const Home = () => {
             <View style={styles.container}>
                 <Appbar.Header style={styles.header}>
                 <Appbar.Action icon="refresh" accessibiltyLevel onPress={() => getOrders()} />
-                    <Appbar.Content title="OnlineShop2022 Orders" />
+                    <Appbar.Content title="Orders Pending Pickup" />
                     <Appbar.Action icon="logout" accessibiltyLevel onPress={() => logout()} />
                 </Appbar.Header>
                 <ScrollView style={styles.scrolling}>{orderMap}</ScrollView>

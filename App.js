@@ -104,48 +104,22 @@ export default function App() {
   }
 
   if(token == null){
-    if(formState){
-      return (
-        <View style={styles.container}>
-          <Text style={styles.mainTitle}>OnlineShop2022</Text>
-          <Text style={styles.title}>Delivery Application</Text>
+    return (
+      <View style={styles.container}>
+        <Text style={styles.mainTitle}>OnlineShop2022</Text>
+        <Text style={styles.title}>Delivery Application</Text>
 
-          <Text style={styles.title}>Login</Text>
-          <TextInput style={styles.input} placeholder='Email' onChangeText={(email) => setEmail(email)} />
-          <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} onChangeText={(password) => setPassword(password)} />
+        <Text style={styles.title}>Login</Text>
+        <TextInput style={styles.input} placeholder='Email' onChangeText={(email) => setEmail(email)} />
+        <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} onChangeText={(password) => setPassword(password)} />
 
-          <View style={styles.inputButton}>
-            <Button title='Login' color={'#28b44c'} onPress={(email) => sendLogin(email)} />
-          </View>
-          <View style={styles.secondaryButton}>
-            <Button title='Register Account Instead' color={'#f8ac4c'} onPress={formStateChange} />
-          </View>
+        <View style={styles.inputButton}>
+          <Button title='Login' color={'#28b44c'} onPress={(email) => sendLogin(email)} />
         </View>
-      )
-    }
-    else{
-      return (
-        <View>
-          <Text style={styles.mainTitle}>OnlineShop2022</Text>
-          <Text style={styles.title}>Delivery Application</Text>
-
-          <Text style={styles.title}>Register</Text>
-          <TextInput style={styles.input} placeholder='First Name' onChangeText={(name) => setFirstName(name)} />
-          <TextInput style={styles.input} placeholder='Email' onChangeText={(email) => setEmail(email)} />
-          <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} onChangeText={(password) => setPassword(password)} />
-
-          <View style={styles.inputButton}>
-            <Button title='Register' color={'#28b44c'} onPress={(email) => sendLogin(email)} />
-          </View>
-          <View style={styles.secondaryButton}>
-            <Button title='Login Instead' color={'#f8ac4c'} onPress={formStateChange} />
-          </View>
-        </View>
-      )
-    }
+      </View>
+    )
   }
   else{
-    console.log(token)
     return (
       <BottomNavigation navigationState={{index, routes}}
       onIndexChange={setIndex}
@@ -161,6 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'black'
   },
   input: {
     height: 50,
@@ -186,17 +161,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white'
   },
   mainTitle: {
     fontSize: 40,
     textAlign: 'center',
     marginBottom: 80,
     marginTop: 10,
-    fontWeight: 'bold'
-  },
-  secondaryButton: {
-    width: 130,
-    marginTop: 10
+    fontWeight: 'bold',
+    color: 'white'
   },
 })

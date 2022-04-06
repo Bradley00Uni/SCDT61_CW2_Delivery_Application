@@ -87,7 +87,7 @@ const History = () => {
               <View style={styles.container}>
                   <Appbar.Header style={styles.header}>
                     <Appbar.Action icon="refresh" accessibiltyLevel onPress={() => getOrders()} />
-                    <Appbar.Content title="OnlineShop2022 Orders" />
+                    <Appbar.Content title="Completed Deliveries" />
                   </Appbar.Header>
                   <ScrollView style={styles.scrolling}>{orderMap}</ScrollView>
               </View>
